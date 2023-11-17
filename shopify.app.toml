@@ -1,0 +1,28 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "aliexpress-reviews"
+client_id = "ada695111b41155218cb1c5414cea441"
+application_url = "https://ic-favourite-obj-hu.trycloudflare.com"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://ic-favourite-obj-hu.trycloudflare.com/auth/callback",
+  "https://ic-favourite-obj-hu.trycloudflare.com/auth/shopify/callback",
+  "https://ic-favourite-obj-hu.trycloudflare.com/api/auth/callback",
+  "https://ic-favourite-obj-hu.trycloudflare.com/.shopify/graphiql/auth/callback"
+]
+
+[webhooks]
+api_version = "2023-10"
+
+[pos]
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "quickstart-600100d8.myshopify.com"
