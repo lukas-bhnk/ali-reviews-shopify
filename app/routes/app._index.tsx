@@ -17,43 +17,6 @@ import {
 import { authenticate } from "../shopify.server";
 import { log } from "console";
 
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const { admin } = await authenticate.admin(request);
-  const response = await admin.graphql(`
-    query GetAllProducts {
-      products (first: 10) {
-        edges {
-          node {
-            id
-            title
-            handle
-            status
-            variants(first: 10) {
-              edges {
-                node {
-                  id
-                  price
-                  barcode
-                  createdAt
-                }
-              }
-            }
-          }
-        }
-      }
-    }`    
-  );
-  const responseJson = await response.json();
-
-  // Assuming responseJson is correctly structured as per the GraphQL response
-  const products = responseJson.data.products.edges;
-  
-  // Iterate over the products and log each title
-  products.forEach((product: { node: { title: any; }; }) => {
-    console.log(product.node.title);
-  })
-  return null;
-};
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const { admin } = await authenticate.admin(request);

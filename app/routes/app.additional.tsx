@@ -13,7 +13,7 @@ import {
 export default function AdditionalPage() {
   return (
     <Page>
-      <ui-title-bar title="Additional pages" />
+      <ui-title-bar title="Additional pagesss" />
       <Layout>
         <Layout.Section>
           <Card>

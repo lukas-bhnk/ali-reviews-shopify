@@ -2,7 +2,7 @@
 
 name = "aliexpress-reviews"
 client_id = "ada695111b41155218cb1c5414cea441"
-application_url = "https://ic-favourite-obj-hu.trycloudflare.com"
+application_url = "https://magic-organization-shapes-trinidad.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://ic-favourite-obj-hu.trycloudflare.com/auth/callback",
-  "https://ic-favourite-obj-hu.trycloudflare.com/auth/shopify/callback",
-  "https://ic-favourite-obj-hu.trycloudflare.com/api/auth/callback",
-  "https://ic-favourite-obj-hu.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://magic-organization-shapes-trinidad.trycloudflare.com/auth/callback",
+  "https://magic-organization-shapes-trinidad.trycloudflare.com/auth/shopify/callback",
+  "https://magic-organization-shapes-trinidad.trycloudflare.com/api/auth/callback",
+  "https://magic-organization-shapes-trinidad.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
