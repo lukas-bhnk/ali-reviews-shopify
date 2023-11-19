@@ -11,11 +11,16 @@ import {
   Text,
   Icon,
   InlineStack,
+  Button,
+  BlockStack,
 } from "@shopify/polaris";
+
 
 
 import { DiamondAlertMajor, ImageMajor } from "@shopify/polaris-icons";
 import { log } from "console";
+import { useState } from "react";
+import ModalWithPrimaryActionExample from "~/components/modal_import";
 
 // [START loader]
 export async function loader({ request }) {
@@ -26,7 +31,6 @@ export async function loader({ request }) {
     first: first,
     after: after
   };
-  console.log(request);
   
   const query = `
   query GetAllProducts($first: Int, $after: String) {
@@ -51,8 +55,6 @@ export async function loader({ request }) {
 const response = await admin.graphql(
 query, { variables });
 const responseJson = await response.json();
-console.log(responseJson.data.products);
-
 return json( {products: responseJson.data.products.edges});
 }
 // [END loader]
@@ -68,6 +70,7 @@ const EmptyProductsState = () => (
 );
 // [END empty]
 
+
 function truncate(str, { length = 25 } = {}) {
   if (!str) return "";
   if (str.length <= length) return str;
@@ -81,15 +84,16 @@ const ProductsTable = ({ products }) => (
       singular: "Product Review",
       plural: "Product Reviews",
     }}
-    itemCount={products.length}
+    itemCount={products.products.length}
     headings={[
       { title: "Thumbnail", hidden: true },
       { title: "Product" },
+      { title: "Import Reviews"}
     ]}
     selectable={false}
   >
     
-    {products.map((product) => (
+    {products.products.map((product) => (
       <ProductTableRow key={product.node.id} product={product.node} />
     ))}
   </IndexTable>
@@ -116,33 +120,85 @@ const ProductTableRow = ({ product }) => (
       }
       {/* [END deleted] */}
     </IndexTable.Cell>
+{/*     <IndexTable.Cell>
+      <Link to={`qrcodes/${qrCode.id}`}>{truncate(qrCode.title)}</Link>
+    </IndexTable.Cell> */}
+    <IndexTable.Cell>
+      {/* [START deleted] */}
+      {
+        <ModalWithPrimaryActionExample title={product.title} id={product.id} src={product?.images?.edges[0]?.node?.src || ImageMajor}/>
+      }
+      {/* [END deleted] */}
+    </IndexTable.Cell>
   </IndexTable.Row>
 );
 // [END row]
 
 export default function Index() {
-  const { products } = useLoaderData();
+  const [products, setProducts] = useState(useLoaderData());
   
+  
+    // [START select-product]
+    async function selectProduct() {
+    const products_new = await window.shopify.resourcePicker({
+        type: "product",
+        action: "select", 
+        filter: {
+            variants: false
+        }
+        // customized action verb, either 'select' or 'add',
+    });
+    
+
+    if (products_new) {
+        const { images, id, title } = products_new[0]
+          
+        setProducts({
+                products: [ 
+                    {node: {
+                        id: id,
+                        title: title,
+                        images: {
+                            edges: [{
+                                node: {
+                                    src: images[0]?.originalSrc
+                                }}
+                            ]
+                        }
+                    }}]
+        });
+        
+}}
   
   const navigate = useNavigate();
 
   // [START page]
   return (
     <Page>
-      <ui-title-bar title="QR codes">
+      <ui-title-bar title="Import Reviews">
         <button variant="primary" onClick={() => navigate("/app/qrcodes/new")}>
-          Create QR code
+          Import Reviews
         </button>
       </ui-title-bar>
       <Layout>
         <Layout.Section>
+        
+        <Card>
+                  <BlockStack gap="200">
+                    <Button onClick={selectProduct} id="select-product">
+                      Select product
+                    </Button>
+                  </BlockStack>
+        </Card>
           <Card padding="0">
-            {products.length === 0 ? (
+            {products?.length === 0 ? (
               <EmptyProductsState/>
             ) : (
               <ProductsTable products={products} />
             )}
+            
           </Card>
+          
         </Layout.Section>
       </Layout>
     </Page>
