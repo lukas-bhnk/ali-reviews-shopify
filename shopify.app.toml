@@ -2,7 +2,7 @@
 
 name = "aliexpress-reviews"
 client_id = "ada695111b41155218cb1c5414cea441"
-application_url = "https://appear-lights-conference-about.trycloudflare.com"
+application_url = "https://cannon-spectrum-bacterial-flower.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://appear-lights-conference-about.trycloudflare.com/auth/callback",
-  "https://appear-lights-conference-about.trycloudflare.com/auth/shopify/callback",
-  "https://appear-lights-conference-about.trycloudflare.com/api/auth/callback",
-  "https://appear-lights-conference-about.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://cannon-spectrum-bacterial-flower.trycloudflare.com/auth/callback",
+  "https://cannon-spectrum-bacterial-flower.trycloudflare.com/auth/shopify/callback",
+  "https://cannon-spectrum-bacterial-flower.trycloudflare.com/api/auth/callback",
+  "https://cannon-spectrum-bacterial-flower.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

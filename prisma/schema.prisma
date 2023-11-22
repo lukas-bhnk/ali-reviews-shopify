@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -19,4 +16,20 @@ model Session {
   expires     DateTime?
   accessToken String
   userId      BigInt?
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  content   String
+  stars     Int
+  createdAt DateTime @default(now())
+  productId String
+  images    Image[]
+}
+
+model Image {
+  id       Int    @id @default(autoincrement())
+  url      String
+  reviewId Int
+  review   Review @relation(fields: [reviewId], references: [id])
 }
